@@ -96,15 +96,6 @@ $env:SENDER_EMAIL = "youremail@gmail.com
 "
 $env:SENDER_PASSWORD = "your_app_password"
 
-
-**Example:**
-
-
-$env:SENDER_EMAIL = "g11.arnadoc@gmail.com
-"
-$env:SENDER_PASSWORD = "tznz nwzc xdqb heue"
-
-
 ---
 
 ## Step 4: Send Emails
