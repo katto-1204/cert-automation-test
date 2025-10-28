@@ -18,7 +18,6 @@ It creates custom certificates from a template image, fills in recipient details
 
 ## Project Structure
 
-
 cert-automation/
 │
 ├── template.png # Certificate template image
@@ -208,6 +207,6 @@ Sent email to juan@gmail.com
 ---
 
 ## Author
-Developed by **Terryl Jean Arnado**  
+Developed by **Catherine Arnad**  
 Davao City, Philippines  
 Python Version: 3.13
