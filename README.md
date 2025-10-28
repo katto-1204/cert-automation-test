@@ -1,139 +1,167 @@
-Certificate Automation – Full Documentation Guide
+CERTIFICATE AUTOMATION PROJECT
+DESCRIPTION
 
-OVERVIEW
-This project automates the generation and emailing of certificates using Python.
-It uses Pillow for image processing, Pandas for data handling, and smtplib for email automation.
+This project automates the generation and emailing of personalized certificates using Python.
+It creates custom certificates from a template image, fills in recipient details (name, course, and date), saves them as PNG and PDF files, and optionally sends them via email.
 
-FOLDER STRUCTURE
+TECHNOLOGIES USED
+
+Python 3.10 or higher
+
+Pillow – for image editing and text placement
+
+Pandas – for reading CSV data
+
+smtplib – for sending emails
+
+email.message – for creating email messages with attachments
+
+os – for file and environment handling
+
+PROJECT STRUCTURE
+
 cert-automation/
 │
-├── output/ - Generated certificates (PNG & PDF)
-│ ├── Juan_Dela_Cruz.pdf
-│ ├── Juan_Dela_Cruz.png
-│
-├── font.ttf - Font used in certificate
-├── template.png - Certificate background image
-├── recipients.csv - Recipient list (name, course, date, email)
-├── generate_certificates.py - Script to generate certificates
-├── send_emails.py - Script to email certificates
-└── README.txt - This documentation
+├── template.png Certificate template image
+├── font.ttf Font file used for writing text
+├── recipients.csv Recipient information list
+├── output/ Folder where generated certificates are saved
+├── generate_certificates.py Script that generates certificates
+├── send_emails.py Script that sends certificates through email
+└── README.md Documentation file (this one)
+
+REQUIRED FILES
+
+template.png
+The image background of your certificate. Leave blank spaces where text (name, course, date) will appear.
+
+font.ttf
+The font file to be used for the certificate text.
+
+recipients.csv
+A list of recipients with the following headers:
+name,course,date,email
+
+Example:
+Juan Dela Cruz,Python Basics,October 28 2025,juan@gmail.com
+
+Maria Santos,Data Science 101,October 28 2025,maria@gmail.com
 
 INSTALLATION
 
-Install Dependencies
-Run in PowerShell or terminal:
+Install Python 3.10 or later.
+
+Open a terminal or PowerShell inside your project folder.
+
+Install required packages:
+
 pip install pillow pandas
 
-PREPARING FILES
+STEP 1: GENERATE CERTIFICATES
 
-template.png
-Your certificate background image. It should have blank spaces for the name, course, and date.
+Run the certificate generator script:
 
-font.ttf
-The font used to write the text on the certificate.
-
-recipients.csv
-Create a CSV file with the following columns:
-name,course,date,email
-Juan Dela Cruz,Python Workshop,Oct 28 2025,juan@gmail.com
-
-Maria Santos,Python Workshop,Oct 28 2025,maria@gmail.com
-
-CERTIFICATE GENERATION
-Run this command:
 python generate_certificates.py
 
 This will:
 
-Read recipients.csv
+Read recipient information from recipients.csv
 
-Write the name, course, and date on template.png
+Write their name, course, and date onto the certificate template
 
-Save each as PNG and PDF in the output folder
+Save each certificate as both PNG and PDF in the output folder
 
-Example output:
-Template loaded (2000 x 1414)
-Saved certificate for Juan Dela Cruz
-Saved certificate for Maria Santos
-All certificates generated successfully!
+STEP 2: SET UP GMAIL APP PASSWORD
 
-GMAIL SETUP FOR SENDING CERTIFICATES
+If using Gmail, you must use an App Password to send emails securely.
 
-Create a Gmail App Password
-Go to https://myaccount.google.com/apppasswords
+Go to your Google Account
 
-Select “Mail” then “Windows Computer”.
-Copy the 16-character app password (example: abcd efgh ijkl mnop).
+Navigate to Security > 2-Step Verification > App Passwords
 
-Set Environment Variables (PowerShell)
-Before running the email sender, set your Gmail credentials:
+Generate a new app password for "Mail" and "Windows Computer"
+
+Copy the 16-character app password (use this instead of your real Gmail password)
+
+STEP 3: SET EMAIL VARIABLES
+
+Before running the email sender, set your credentials in PowerShell:
 
 $env:SENDER_EMAIL = "youremail@gmail.com
 "
 $env:SENDER_PASSWORD = "your_app_password"
 
-SENDING CERTIFICATES VIA EMAIL
-Run this command:
+Example:
+
+$env:SENDER_EMAIL = "g11.arnadoc@gmail.com
+"
+$env:SENDER_PASSWORD = "tznz nwzc xdqb heue"
+
+STEP 4: SEND EMAILS
+
+Run the email sender script:
+
 python send_emails.py
 
-This will send an email with each participant’s certificate attached.
+This will:
 
-Example output:
-Found 2 recipients with emails.
-Mode: SENDING ACTUAL EMAILS
+Read the recipients.csv file
 
-Sending to Juan Dela Cruz juan@gmail.com
+Match each name to its corresponding certificate file
 
-Attachment: Juan_Dela_Cruz.pdf
-Sent successfully.
+Send the email with the certificate attached
 
-Sending to Maria Santos maria@gmail.com
+The program logs each step (who it sends to, what file, and if it succeeded).
 
-Attachment: Maria_Santos.pdf
-Sent successfully.
+STEP 5: DRY RUN MODE
 
-DRY RUN MODE (TEST WITHOUT SENDING)
-If you only want to simulate sending without actually emailing, set:
+You can test the program without actually sending emails.
+To do this, open send_emails.py and change:
+
+main(dry_run=False)
+
+to
+
 main(dry_run=True)
 
-This will print what would be sent but not actually connect to Gmail.
+STEP 6: GITHUB SETUP
 
-LIBRARIES USED
-
-Pillow (PIL) - Opens the certificate template, writes text, saves images and PDFs
-Pandas - Reads and manages CSV recipient data
-smtplib - Connects to Gmail’s SMTP server
-EmailMessage - Builds and attaches PDF to the email
-os - Handles file paths and environment variables
-
-STEP-BY-STEP SUMMARY
-
-Install dependencies: pip install pillow pandas
-
-Prepare your files: template, font, and CSV
-
-Generate certificates: python generate_certificates.py
-
-Set Gmail environment variables: $env:SENDER_EMAIL="..."
-
-Send emails: python send_emails.py
-
-OPTIONAL: GIT SETUP
-
-Initialize and push this project to GitHub:
+Initialize a git repository:
 
 git init
+
+Add all project files:
+
 git add .
+
+Commit your changes:
+
 git commit -m "Initial commit - certificate automation project"
+
+Add your remote GitHub repository:
+
 git branch -M main
 git remote add origin https://github.com/your-username/cert-automation.git
 
+Push to GitHub:
+
 git push -u origin main
 
-Optional .gitignore file to exclude unnecessary items:
+TROUBLESHOOTING
 
-output/
-pycache/
-*.env
-*.pyc
+If you get "Template not found" – Check that template.png is in the same folder.
 
+If "Font file not found" – Verify your font.ttf path is correct.
+
+If "ERROR: SENDER_EMAIL and SENDER_PASSWORD must be set" – Re-enter the PowerShell environment variables.
+
+If email fails – Ensure Less Secure Apps is disabled and you are using an App Password.
+
+OUTPUT EXAMPLES
+
+Certificate files: output/Juan_Dela_Cruz.pdf, output/Juan_Dela_Cruz.png
+
+Console log examples:
+Template loaded (2000 x 1414)
+Saved certificate for Juan Dela Cruz
+Sent email to juan@gmail.com
