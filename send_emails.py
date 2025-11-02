@@ -13,8 +13,8 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", 587))
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
 
-SUBJECT_TEMPLATE = "Your Certificate for {course}"
-BODY_TEMPLATE = """Hi {name},
+SUBJECT_TEMPLATE = "hello nara oh {course}"
+BODY_TEMPLATE = """yo {name},
 
 Congratulations on completing {course} on {date}!
 
